@@ -1,5 +1,8 @@
-let router = require('express').Router();
-var wordController = require('../controllers/word.controller');
+const router = require('express').Router();
+const wordController = require('../controllers/word.controller');
+const authController = require('../controllers/auth.controller');
+const { verifySignUp, authJwt } = require('../middlewares');
+
 
 router.get('/', function(req,res){
     res.json({
@@ -10,13 +13,25 @@ router.get('/', function(req,res){
 
 router.route('/word')
     .get(wordController.getAll)
-    .post(wordController.create);
+    .post([authJwt.verifyToken,authJwt.isAdmin],wordController.create);
 
 router.route('/word/:word')
     .get(wordController.findById)
-    .patch(wordController.update)
-    .put(wordController.update)
-    .delete(wordController.delete);
+    .patch([authJwt.verifyToken,authJwt.isAdmin],wordController.update)
+    .put([authJwt.verifyToken,authJwt.isAdmin],wordController.update)
+    .delete([authJwt.verifyToken,authJwt.isAdmin],wordController.delete);
 
 
+
+router.route('/signin')
+    .post(authController.signin);
+
+
+router.route('/signup')
+    .post(
+        [verifySignUp.checkDuplicateUsernameOrEmail,
+        verifySignUp.checkIfRolesExists],
+        authController.signup);
+        
+        
 module.exports = router;

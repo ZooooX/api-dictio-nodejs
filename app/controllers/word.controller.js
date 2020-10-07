@@ -95,7 +95,7 @@ exports.update = function(req,res){
 
 //handle delete 
 exports.delete = function(req,res){
-    Word.remove({
+    Word.deleteOne({
         _id : req.params.word
     },function(err,word){
         if(err) res.send(err);
