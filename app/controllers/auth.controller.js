@@ -21,6 +21,7 @@ exports.signup = (req, res) => {
         }
 
         //if roles selected
+        console.log(req.body)
         if(req.body.roles){
             Role.find({
                 name : {$in : req.body.roles}
@@ -55,7 +56,7 @@ exports.signup = (req, res) => {
                         return;
                     }
 
-                    res.send({message : 'user registered'});
+                    res.send({message : 'User registered'});
                 });
             });
         }
@@ -90,7 +91,7 @@ exports.signin = (req, res) => {
         }
 
         var token = jwt.sign({id : user.id}, config.secret, {
-            expiresIn : 86400 // 24 h in seconds
+            expiresIn : 3600 // 1 h in seconds
         });
 
         var authorities = [];
@@ -100,9 +101,7 @@ exports.signin = (req, res) => {
         }
 
         res.status(200).send({
-            id : user._id,
             username : user.username,
-            email : user.email,
             roles : authorities,
             accessToken : token
         });

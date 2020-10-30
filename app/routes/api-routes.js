@@ -2,6 +2,7 @@ const router = require('express').Router();
 const wordController = require('../controllers/word.controller');
 const authController = require('../controllers/auth.controller');
 const { verifySignUp, authJwt } = require('../middlewares');
+const verifySignup = require('../middlewares/verifySignup');
 
 
 router.get('/', function(req,res){
@@ -23,14 +24,15 @@ router.route('/word/:word')
 
 
 
-router.route('/signin')
+router.route('/auth/signin')
     .post(authController.signin);
 
 
-router.route('/signup')
+router.route('/auth/signup')
     .post(
-        [verifySignUp.checkDuplicateUsernameOrEmail,
-        verifySignUp.checkIfRolesExists],
+        verifySignup.checkEmptyFields,
+        verifySignUp.checkDuplicateUsernameOrEmail,
+        verifySignUp.checkIfRolesExists,
         authController.signup);
         
         

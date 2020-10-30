@@ -2,6 +2,16 @@ const db = require("../models");
 const ROLES = db.ROLES;
 const User = db.user;
 
+
+checkEmptyFields = (req, res, next) => {
+    if(req.body.username == "" || req.body.password == "" || req.body.email == "" || req.body.roles == "" || req.body.username == undefined || req.body.password == undefined || req.body.email == undefined || req.body.roles == undefined){
+        res.status(400).send({message : 'Some fields are empty'});
+        return;
+    }
+    next();
+}
+
+
 checkDuplicateUsernameOrEmail = (req,res,next) => {
     //check username
 
@@ -38,6 +48,7 @@ checkDuplicateUsernameOrEmail = (req,res,next) => {
 };
 
 checkIfRolesExists = (req, res, next) => {
+    console.log(req.body);
     if(req.body.roles){
         for(let i =0; i< req.body.roles.length; i++){
             if (!ROLES.includes(req.body.roles[i])) {
@@ -52,6 +63,7 @@ checkIfRolesExists = (req, res, next) => {
 };
 
 const verifySignup = {
+    checkEmptyFields,
     checkDuplicateUsernameOrEmail,
     checkIfRolesExists
 }
