@@ -13,11 +13,11 @@ router.get('/', function(req,res){
 });
 
 router.route('/word')
-    .get(wordController.getAll)
+    .get(authJwt.verifyToken,wordController.getAll)
     .post([authJwt.verifyToken,authJwt.isAdmin],wordController.create);
 
 router.route('/word/:word')
-    .get(wordController.findById)
+    .get(authJwt.verifyToken,wordController.findById)
     .patch([authJwt.verifyToken,authJwt.isAdmin],wordController.update)
     .put([authJwt.verifyToken,authJwt.isAdmin],wordController.update)
     .delete([authJwt.verifyToken,authJwt.isAdmin],wordController.delete);

@@ -22,6 +22,7 @@ body : json
  }
 
 <b>GET : /word</b>
+header : x-access-token <br>
 
 <b>POST : /word</b><br>
 header : x-access-token <br>
@@ -35,6 +36,7 @@ body : json
 
 
 <b>GET : /word/{word}</b><br>
+header : x-access-token <br>
 
 <b>PUT : /word/{word}</b><br>
 header : x-access-token <br>
