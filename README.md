@@ -5,8 +5,8 @@ User Signup / login / roles to access dictionnary data
 
 
 # Endpoints
-
-<b>POST : /auth/signup</b>
+```diff
++<b>POST : /auth/signup</b><br>
 body : json
  {
     username : xxxx,
@@ -15,17 +15,17 @@ body : json
     roles : xxxxxx
  }
 
-<b>POST : /auth/signin</b>
++<b>POST : /auth/signin</b> <br>
 body : json
  {
     username : xxxx,
     password : xxxxx
  }
 
-<b>GET : /word</b>
+#<b>GET : /word</b>
 
-<b>POST : /word</b>
-header : x-access-token
++<b>POST : /word</b><br>
+header : x-access-token <br>
 body : json
  {
     word : xxxx,
@@ -35,10 +35,10 @@ body : json
  }
 
 
-<b>GET : /word/{word}</b>
+#<b>GET : /word/{word}</b><br>
 
-<b>PUT : /word/{word}</b>
-header : x-access-token
+<b>PUT : /word/{word}</b><br>
+header : x-access-token <br>
 body : json
  {
     word : xxxx,
@@ -47,6 +47,6 @@ body : json
     synonymes : [xxxxxx]
  }
 
-<b>DELETE : /word/{word}</b>
+-<b>DELETE : /word/{word}</b><br>
 header : x-access-token
-
+```
